@@ -18,6 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('quantity')->unsigned();
             $table->bigInteger('buyer_id')->unsigned()->index();
             $table->bigInteger('product_id')->unsigned()->index();
+            $table->softDeletes();
             $table->timestamps();
             $table->foreign('buyer_id')->references('id')->on('users');
             $table->foreign('product_id')->references('id')->on('products');
