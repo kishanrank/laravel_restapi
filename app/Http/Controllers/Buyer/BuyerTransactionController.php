@@ -16,8 +16,7 @@ class BuyerTransactionController extends ApiController
     public function index(Buyer $buyer)
     {
         $transactions = $buyer->transactions;
-        
+
         return $this->showAll($transactions);
     }
-
-   }
+}

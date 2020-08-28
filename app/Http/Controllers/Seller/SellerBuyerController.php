@@ -16,14 +16,14 @@ class SellerBuyerController extends ApiController
     public function index(Seller $seller)
     {
         $buyers = $seller->products()
-                        ->has('transactions')
-                        ->with('transactions.buyer')
-                        ->get()
-                        ->pluck('transactions')
-                        ->collapse()
-                        ->pluck('buyer')
-                        ->unique('id')
-                        ->values();
+            ->has('transactions')
+            ->with('transactions.buyer')
+            ->get()
+            ->pluck('transactions')
+            ->collapse()
+            ->pluck('buyer')
+            ->unique('id')
+            ->values();
 
         return $this->showAll($buyers);
     }

@@ -16,11 +16,11 @@ class CategoryTransactionController extends ApiController
     public function index(Category $category)
     {
         $transactions = $category->products()
-                                    ->has('transactions')
-                                    ->with('transactions')
-                                    ->get()
-                                    ->pluck('transactions')
-                                    ->collapse();
+            ->has('transactions')
+            ->with('transactions')
+            ->get()
+            ->pluck('transactions')
+            ->collapse();
 
         return $this->showAll($transactions);
     }

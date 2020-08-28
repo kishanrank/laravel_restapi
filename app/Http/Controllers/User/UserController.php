@@ -100,24 +100,23 @@ class UserController extends ApiController
             $user->email = $request->email;
         }
 
-        if($request->has('password')) {
+        if ($request->has('password')) {
             $user->password = bcrypt($request->password);
         }
 
-        if($request->has('admin')) {
-            if(!$user->isVerified()) {
+        if ($request->has('admin')) {
+            if (!$user->isVerified()) {
                 return $this->errorResponse("Sorry, Only admin can change this section.", 409);
             }
         }
 
-        if(!$user->isDirty()) {
+        if (!$user->isDirty()) {
             return $this->errorResponse("Data must be different to update.", 422);
         }
 
         $user->save();
 
         return $this->showOne($user);
-        
     }
 
     /**
@@ -131,6 +130,5 @@ class UserController extends ApiController
         $user->delete();
 
         return $this->showOne($user);
-
     }
 }

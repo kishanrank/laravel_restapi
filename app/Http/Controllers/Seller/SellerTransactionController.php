@@ -16,11 +16,11 @@ class SellerTransactionController extends ApiController
     public function index(Seller $seller)
     {
         $transactions = $seller->products()
-                                ->has('transactions')
-                                ->with('transactions')
-                                ->get()
-                                ->pluck('transactions')
-                                ->collapse();
+            ->has('transactions')
+            ->with('transactions')
+            ->get()
+            ->pluck('transactions')
+            ->collapse();
 
         return $this->showAll($transactions);
     }
