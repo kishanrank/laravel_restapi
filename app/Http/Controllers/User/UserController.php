@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use App\Http\Controllers\ApiController;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -130,5 +131,16 @@ class UserController extends ApiController
         $user->delete();
 
         return $this->showOne($user);
+    }
+
+    public function verify($token)
+    {
+        $user = User::whereVerificationToken($token)->firstOrFail();
+        $user->verified = User::VERIFIED_USER;
+        $user->email_verified_at = Carbon::now();
+        $user->verification_token = null;
+        $user->save();
+
+        return $this->showMessage("Account verified successfully.");
     }
 }
