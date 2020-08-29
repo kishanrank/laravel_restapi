@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         Product::truncate();
         DB::table('category_product')->truncate();
 
+        User::flushEventListeners(); //to disable events like sending mail
+
         $usersQuantity = 1000;
         $categoriesQuantity = 30;
         $productsQuantity = 1000;
