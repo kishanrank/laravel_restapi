@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\User;
 use App\Http\Controllers\ApiController;
 use App\Mail\UserCreated;
+use App\Transformers\UserTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -12,6 +13,14 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends ApiController
 {
+
+    public function __construct()
+    {
+        // parent::__construct();
+
+        $this->middleware('transform.input:' . UserTransformer::class)->only(['store', 'update']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -148,7 +157,7 @@ class UserController extends ApiController
 
     public function resend(User $user)
     {
-        if($user->isVerified()) {
+        if ($user->isVerified()) {
             return $this->errorResponse('This user is already verified.', 409);
         }
 
